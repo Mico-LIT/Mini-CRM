@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+        <i class="material-icons">
+        bookmark
+    </i>6 (8 tablet)</div>
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet">4 (6 tablet)</div>
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone">2 (4 phone)</div>*@
+
+@*<div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>*@
+
+
+<div class="mdl-grid" style="justify-content:center">
+    <div class=""  id="app">
+        <div class="mdl-shadow--6dp" style="padding:10px">
+            <h5>Добавить человека</h5>
+            <form action="#">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="sample1" v-bind:value="message">
+                    <label class="mdl-textfield__label" for="sample1">ФИО</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="sample1">
+                    <label class="mdl-textfield__label" for="sample1">URL</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" id="octane" name="octane">
+                        <option></option>
+                        <option value="1">Instagram</option>
+                        <option value="2">VK</option>
+                        <option value="3">Email</option>
+                    </select>
+                    <label class="mdl-textfield__label" for="octane">EndPoint</label>
+                </div>
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+                    <i class="material-icons">add</i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="mdl-grid" style="justify-content:center">
+    <div class="" >
+        <table class="mdl-data-table mdl-js-data-table @*mdl-data-table--selectable*@ mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">ФИО</th>
+                    <th>URL</th>
+                    <th>EndPoint</th>
+                    <th>TimeStamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                    <td>https://www.instagram.com/offi_hanna/</td>
+                    <td>Instagram</td>
+                    <td>12.12.18</td>
+                </tr>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                    <td>https://www.instagram.com/offi_hanna/</td>
+                    <td>Instagram</td>
+                    <td>12.12.18</td>
+                </tr>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                    <td>https://www.instagram.com/offi_hanna/</td>
+                    <td>Instagram</td>
+                    <td>12.12.18</td>
+                </tr>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                    <td>https://www.instagram.com/offi_hanna/</td>
+                    <td>Instagram</td>
+                    <td>12.12.18</td>
+                </tr>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                    <td>https://www.instagram.com/offi_hanna/</td>
+                    <td>Instagram</td>
+                    <td>12.12.18</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Привет, Vue!'
+        }
+    })
+</script>
