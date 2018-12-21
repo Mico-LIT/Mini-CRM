@@ -1,0 +1,97 @@
+﻿
+@using ForBiz.ViewModel.Shared
+
+@model PaginationAjaxVm
+
+@if (Model.Pagination.TotalCount > 0 && Model.Pagination.Page > 0 && Model.Pagination.Page <= Model.Pagination.TotalPages)
+{
+    <tfoot>
+        <tr>
+            <td colspan="100">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" name="Size" id="pagination-ajax-size" value="@Model.Pagination.Size" onkeypress="changePageSize($(this), function(pageSize){@Model.ChangePageSizeAction})">
+                    <label class="mdl-textfield__label" for="pagination-ajax-size"></label>
+                </div>
+
+                на странице
+
+                <button class="mdl-button mdl-js-button mdl-button--icon" onclick="@Model.PreviousPageAction">
+                    <i class="material-icons" title="Предыдущая страница">keyboard_arrow_left</i>
+                </button>
+
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" name="Page" id="pagination-ajax-page" value="@Model.Pagination.Page" onkeypress="changePageNumber($(this), function(pageNumber){@Model.ChangePageNumberAction})">
+                    <label class="mdl-textfield__label" for="pagination-ajax-page"></label>
+                </div>
+
+                из @Model.Pagination.TotalPages
+
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons" title="Следующая страница" onclick="@Model.NextPageAction">keyboard_arrow_right</i>
+                </button>
+            </td>
+        </tr>
+    </tfoot>
+
+    @*
+        <div class="display-table material-pagination" align="right">
+            <div class="display-table-row">
+                <div class="display-table-cell">
+                    <div class="display-table">
+                        <div class="display-table-row">
+                            <div class="display-table-cell">
+                                <div class="display-table material-pagination__elements-on-page">
+                                    <div class="display-table-row">
+                                        <div class="display-table-cell material-pagination__block">
+                                            <input type="text" class="material-pagination__input" name="Size" value="@Model.Pagination.Size" onkeypress="changePageSize($(this), function(pageSize){@Model.ChangePageSizeAction})" />
+                                        </div>
+
+                                        <div class="display-table-cell material-pagination__block material-pagination__on-page">на странице</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="display-table-cell">
+                                <div class="display-table material-pagination__switch">
+                                    <div class="display-table-row">
+                                        <div class="display-table-cell material-pagination__previous-link-container">
+                                            <a class="material-pagination__link" href="#/" onclick="@Model.PreviousPageAction"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                        </div>
+
+                                        <div class="display-table-cell material-pagination__block no-padding-left">
+                                            <input type="text" class="material-pagination__input" name="Page" value="@Model.Pagination.Page" onkeypress="changePageNumber($(this), function(pageNumber){@Model.ChangePageNumberAction})" />
+                                        </div>
+
+                                        <div class="display-table-cell material-pagination__block">из</div>
+
+                                        <div class="display-table-cell material-pagination__block">@Model.Pagination.TotalPages</div>
+
+                                        <div class="display-table-cell material-pagination__next-link-container">
+                                            <a class="material-pagination__link no-padding-right" href="#/" onclick="@Model.NextPageAction"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    *@
+}
+
+@*<script type="text/javascript">
+    function changePageSize(element, success) {
+        if (event.which == 13 || event.keyCode == 13) {
+            var pageSize = element.val();
+            success(pageSize);
+        }
+    }
+
+    function changePageNumber(element, success) {
+        if (event.which == 13 || event.keyCode == 13) {
+            var pageNumber = element.val();
+            success(pageNumber);
+        }
+    }
+</script>*@

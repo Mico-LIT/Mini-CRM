@@ -1,112 +1,87 @@
 ﻿@using ForBiz.Models.Instagram;
 @using Newtonsoft.Json;
+@using ForBiz.ViewModel.Shared;
 
 @{
     ViewBag.Title = "Index";
 }
 
-@model List<InstagramVm>
+@model InstagramVm
 
 @*<div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
         <i class="material-icons">
         bookmark
     </i>6 (8 tablet)</div>
-    <div class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet">4 (6 tablet)</div>
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet">4 (6 tabl
+    et)</div>
     <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone">2 (4 phone)</div>*@
 
 @*<div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>*@
 
 
-<div id="Instagram">
-    <dialog class="mdl-dialog" id="UpdatePersonDialog">
-        <h5 class="mdl-dialog__title">Изменить</h5>
+
+
+<div class="" id="Instagram">
+    @*<div></div>*@
+
+    @{ 
+        var pagination = Model.Page.Pagination;
+    }
+
+    <dialog class="mdl-dialog" ref="UpdatePersonDialog" v-if="true">
+        <h5 class="mdl-dialog__title">{{Dialog.Info}}</h5>
         <div class="mdl-dialog__content">
-            <form action="#">
-                <div class="mdc-layout-grid">
-                    <div class="mdc-layout-grid__inner">
 
-                        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                            <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-                                <input type="text" id="UpdatePersonFIO" class="mdc-text-field__input">
-                                <label class="mdc-floating-label mdc-floating-label--float-above" for="my-text-field">ФИО</label>
-                                <div class="mdc-line-ripple"></div>
-                            </div>
-                        </div>
+            <div class="mdl-grid">
 
-                        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                            <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-                                <input type="text" id="UpdatePersonURL" class="mdc-text-field__input">
-                                <label class="mdc-floating-label mdc-floating-label--float-above" for="my-text-field">URL</label>
-                                <div class="mdc-line-ripple"></div>
-                            </div>
-                        </div>
-
-                        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-                            <div data-mdc-auto-init="MDCSelect" class="mdc-select" style="min-width:76%">
-                                <i class="mdc-select__dropdown-icon"></i>
-                                <select class="mdc-select__native-control" id="UpdatePersonEndPoint">
-                                    <option value="" disabled></option>
-                                    <option value="1">Instagram</option>
-                                    <option value="2">VK</option>
-                                    <option value="3" selected>Email</option>
-                                </select>
-                                <label class="mdc-floating-label mdc-floating-label--float-above">EndPoint</label>
-                                <div class="mdc-line-ripple"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.FIO">
+                    <label class="mdl-textfield__label">FIO...</label>
                 </div>
-            </form>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button remove" v-on:click="UpdatePersonDialog(true)">Сохранить</button>
-            <button type="button" class="mdl-button close" v-on:click="UpdatePersonDialog(false)">Отмена</button>
-        </div>
-    </dialog>
 
-    <dialog class="mdl-dialog" id="RemovePersonDialog">
-        <h5 class="mdl-dialog__title">Удалить человека</h5>
-        <div class="mdl-dialog__content">
-            <p id="PersonNameDialog"></p>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button remove" v-on:click="RemovePersonDialog(true)">Да</button>
-            <button type="button" class="mdl-button close" v-on:click="RemovePersonDialog(false)">Нет</button>
-        </div>
-    </dialog>
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.URL">
+                    <label class="mdl-textfield__label">URL...</label>
+                </div>
 
-    <div class="mdl-grid" style="justify-content:center">
-        <div class="" id="app">
-            <div class="mdl-shadow--6dp" style="padding:10px">
-                <h5>Добавить человека</h5>
-                @*<form action="#">*@
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label" for="sample1">ФИО</label>
-                    <input class="mdl-textfield__input" type="text" id="_FIO" v-model="fio">
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label" for="sample1">URL</label>
-                    <input class="mdl-textfield__input" type="text" id="_URL" v-model="url">
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label" for="octane">EndPoint</label>
-                    <select class="mdl-textfield__input" id="_EndPoint" name="octane" v-model="endPoint">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label" >EndPoint</label>
+                    <select class="mdl-textfield__input" v-model="Dialog.CurrPerson.EndPoint">
                         <option disabled value=""></option>
                         <option value="1">Instagram</option>
                         <option value="2">VK</option>
                         <option value="3">Email</option>
                     </select>
                 </div>
-                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" v-on:click="addPerson()">
-                    <i class="material-icons">add</i>
-                </button>
-                @*</form>*@
+
             </div>
         </div>
-    </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button remove" v-on:click="UpdateAndAddPerson()">{{Dialog.Info}}</button>
+            <button type="button" class="mdl-button close" v-on:click="$refs.UpdatePersonDialog.close()">Отмена</button>
+        </div>
+    </dialog>
+
+    <dialog class="mdl-dialog" ref="removePersonDialog">
+        <h5 class="mdl-dialog__title">Удалить человека</h5>
+        <div class="mdl-dialog__content">
+            <p id="PersonNameDialog" v-html="Dialog.Info"> {{Dialog.Info}}</p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button remove" v-on:click="RemovePerson(Dialog.CurrPerson)">Да</button>
+            <button type="button" class="mdl-button close" v-on:click="$refs.removePersonDialog.close()">Нет</button>
+        </div>
+    </dialog>
 
     <div class="mdl-grid" style="justify-content:center">
         <div class="">
+
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+               style="float: right; margin-right: 8px;" v-on:click="AddPersonDialog">
+                <i class="material-icons">person_add</i>
+                ADD PERSON
+            </a>
+
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col">
                 <thead>
                     <tr>
@@ -124,47 +99,78 @@
                         <td>{{item.EndPoint | endPointFilter}}</td>
                         <td>{{item.TimeStamp | formatDate}}</td>
                         <td>
-                            <div class="button-option-person">
-                                <button class="mdc-button js--dropdown-toggle">Меню</button>
-                                <div class="mdc-menu-surface--anchor">
-                                    <div data-mdc-auto-init="MDCMenu" class="mdc-menu mdc-menu-surface" tabindex="-1" style="transform-origin: center bottom 0px; left: 0px; bottom: 0px; max-height: 806.188px;">
-                                        <ul class="mdc-list" role="menu" aria-hidden="true">
-                                            <li class="mdc-list-item mdc-ripple-upgraded" role="menuitem" tabindex="-1" v-on:click="RemovePerson(item)">Удалить</li>
-                                            <li class="mdc-list-divider" role="separator"></li>
-                                            <li class="mdc-list-item mdc-ripple-upgraded" role="menuitem" tabindex="-1" v-on:click="UpdatePerson(item)">Изменить</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="mdl-button mdl-js-button mdl-button--icon" v-on:click="RemovePersonDialog(item)">
+                                <i class="material-icons">remove</i>
+                            </button>
+
+                            <button class="mdl-button mdl-js-button mdl-button--icon" v-on:click="UpdatePersonDialog(item)">
+                                <i class="material-icons">update</i>
+                            </button>
+
+                            @*<div class="button-option-person">
+                    <button class="mdc-button js--dropdown-toggle">Меню</button>
+                    <div class="mdc-menu-surface--anchor">
+                        <div class="mdc-menu mdc-menu-surface" tabindex="-1" style="transform-origin: center bottom 0px; left: 0px; bottom: 0px; max-height: 806.188px;">
+                            <ul class="mdc-list" role="menu" aria-hidden="true">
+                                <li class="mdc-list-item mdc-ripple-upgraded" role="menuitem" tabindex="-1" v-on:click="RemovePerson(item)">Удалить</li>
+                                <li class="mdc-list-divider" role="separator"></li>
+                                <li class="mdc-list-item mdc-ripple-upgraded" role="menuitem" tabindex="-1" v-on:click="UpdatePerson(item)">Изменить</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+
                         </td>
                     </tr>
+                    @(Html.Partial("PaginationAjax.mdl", new PaginationAjaxVm(pagination,
+                           nextPageAction: $"instagram.getPage({pagination.NextPage}, {pagination.Size});",
+                           previousPageAction: $"instagram.getPage({pagination.PreviousPage}, {pagination.Size});",
+                           changePageNumberAction: $"instagram.getPage(pageNumber, {pagination.Size})",
+                           changePageSizeAction: $"instagram.getPage(1, pageSize)")))
                 </tbody>
             </table>
         </div>
     </div>
+
 </div>
 
 <script>
-    //Vue.http.options.emulateJSON = true;
 
-    var instagram = new Vue({
-            el: '#Instagram',
-        data: function () {
-            return {
-                Persons: [],
-                fio: '',
-                url: '',
-                endPoint:''
+        var instagram = new Vue({
+        el: '#Instagram',
+        data: {
+            Persons: [],
+            Dialog: {
+                Info: '',
+                CurrPerson: {
+                    Id: '',
+                    FIO: '',
+                    URL: '',
+                    EndPoint: '',
+                    TimeStamp: ''
+                }
             }
         },
         methods: {
-            addPerson: function (fio, url, endpoint) {
-                //instagram.Lists.unshift({ FIO: this.fio, URL: this.url, EndPoint: endPointFilter(this.endPoint), TimeStamp: new Date() });
-                //InitEventOtionsTable();
-
+            // Lower Cast
+            getPage: function (page, size) {
+                this.ajaxRequest = true;
+                this.$http.post('/Home/Page', { Page: page, Size: size })
+                    .then(response => {
+                        //alert(response.body);
+                        instagram.Persons = response.body;
+                        document.getElementById('pagination-ajax-size').value = size;
+                        document.getElementById('pagination-ajax-page').value = page;
+                        //location.reload();
+                    }, response => {
+                        alert('error');
+                    });
+            },
+            AddPerson: function () {
                 //this.ajaxRequest = false;
+
                 this.$http.post('/Home/AddPerson',
-                    { FIO: this.fio, URL: this.url, EndPoint: this.endPoint, TimeStamp: new Date().toISOString() })
+                    { FIO: this.Dialog.CurrPerson.FIO, URL: this.Dialog.CurrPerson.URL, EndPoint: this.Dialog.CurrPerson.EndPoint, TimeStamp: new Date().toISOString() })
                     .then(response => {
 
                         //// get status
@@ -183,79 +189,140 @@
 
                     }, response => {
                         alert('error');
-
-                        // error callback
                     });
             },
-            info: function (value) {
+            AddPersonDialog: function () {
+
+                this.Dialog.Info = 'Добавить';
+                this.Dialog.CurrPerson = Object.assign({}, {
+                    FIO: '',
+                    URL: '',
+                    EndPoint: '',
+                    TimeStamp: ''
+                });
+
+                this.$refs.UpdatePersonDialog.showModal();
+            },
+            Info: function (value) {
                 alert(value);
             },
             RemovePerson: function (value) {
+                this.$http.post('/Home/DeletePerson', { Id: this.Dialog.CurrPerson.Id })
+                    .then(response => {
+                        location.reload();
+                    }, response => {
+                        alert('error');
+                    });
 
-                document.getElementById('PersonNameDialog').innerHTML = 'Уверены ли вы ? Что хотите удалить </br> ' + value.FIO;
-                Dialog('RemovePersonDialog', true);
-
+                this.$refs.removePersonDialog.close();
             },
             RemovePersonDialog: function (value) {
 
-                if (value) {
-                    alert('удалили');
-                }
+                this.Dialog.Info = 'Уверены ли вы ? Что хотите удалить </br> ' + value.FIO;
+                this.Dialog.CurrPerson = Object.assign({}, value);
 
-                Dialog('RemovePersonDialog', false);
+                this.$refs.removePersonDialog.showModal();
             },
-            UpdatePerson: function (value) {
-                //value.FIO = '';
-                document.getElementById('UpdatePersonFIO').value = value.FIO;
-                document.getElementById('UpdatePersonURL').value = value.URL;
-                document.getElementById('UpdatePersonEndPoint').value = value.EndPoint;
-                Dialog('UpdatePersonDialog', true);
-            }
-            ,
-            UpdatePersonDialog: function (value) {
+            UpdateAndAddPerson: function (value) {
 
-                if (value) {
-                    alert('Обновили');
+                if (this.Dialog.Info === 'Добавить') {
+                    this.AddPerson();
+                }
+                if (this.Dialog.Info === 'Изменить') {
+                    this.UpdatePerson();
                 }
 
-                Dialog('UpdatePersonDialog', false);
+                this.$refs.UpdatePersonDialog.close();
+            },
+            UpdatePersonDialog: function (value) {
+                
+                this.Dialog.Info = 'Изменить';
+                this.Dialog.CurrPerson = Object.assign({}, value);
+
+                this.$refs.UpdatePersonDialog.showModal();
+            },
+            UpdatePerson: function () {
+
+                this.$http.post('/Home/UpdatePerson', this.Dialog.CurrPerson)
+                    .then(response => {
+
+                        location.reload();
+
+                    }, response => {
+                        alert('error')
+                    });
+            }
+        },
+        components: {
+            Sidebar: { template: '<a href=\'33\'>Sidebar</a>' },
+            dialog2: {
+                template: '<input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.FIO">'}
+        },
+        filters: {
+            formatDate: function (value) {
+                if (value) {
+                    return moment(value).format('DD-MM-YYYY HH:mm:ss');
+                }
+            },
+            endPointFilter: function (value) {
+                if (value) {
+                    switch (value) {
+                        case 1:
+                            return 'Instagram';
+                        case 2:
+                            return 'VK';
+                        case 3:
+                            return 'Email';
+                        default:
+                            return value;
+                    }
+                }
+            }
+            },
+        directives: {
+            'mdl-textfield': {
+                // определение директивы
+                componentUpdated(el, binding, vnode) {
+                    if (!(typeof el.MaterialTextfield === 'undefined')) {
+                        if (el.MaterialTextfield.input_.value.length > 0)
+                            el.MaterialTextfield.checkDirty();
+                        else
+                            el.MaterialTextfield.change();
+                    }
+                }
             }
         }
     })
 
-    Vue.filter('formatDate', function (value) {
-        if (value) {
-            //moment.lang('ru');
-            return moment(value).format('DD-MM-YYYY HH:mm:ss');
-            //var d = new Date(Date.parse(value));
-            //return (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() +' '+ d.getHours() + ':' + d.getMinutes());
+    instagram.Persons = @(Html.Raw(JsonConvert.SerializeObject(Model.Page.Items)))
+
+
+    function changePageSize(element, success) {
+        if (event.which == 13 || event.keyCode == 13) {
+            var pageSize = element.val();
+            success(pageSize);
         }
-    });
-
-    Vue.filter('endPointFilter', function(value) {
-        if (value) {
-            switch (value) {
-                case 1:
-                    return 'Instagram';
-                case 2:
-                    return 'VK';
-                case 3:
-                    return 'Email';
-                default:
-                    return value;
-            }
-        }
-    });
-
-
-    function Dialog(name, value) {
-        var dialog = document.getElementById(name);
-
-        if (value) dialog.showModal();
-            else dialog.close();
-
     }
 
-    instagram.Persons = @(Html.Raw(JsonConvert.SerializeObject(Model)))
+    function changePageNumber(element, success) {
+        if (event.which == 13 || event.keyCode == 13) {
+            var pageNumber = element.val();
+            success(pageNumber);
+        }
+    }
+
+    // Material Design Lite directive
+
+    //Vue.directive('mdl-textfield', {
+    //    bind(el, binding, vnode) {},
+    //    update(el, binding, vnode) {},
+    //    unbind(el, binding, vnode) {},
+    //    componentUpdated(el, binding, vnode) {}
+    //});
+
+    //Vue.http.options.emulateJSON = true;
+
+    //$(document).ready(function () {})
+
 </script>
 
