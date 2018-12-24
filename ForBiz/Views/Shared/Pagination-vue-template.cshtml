@@ -1,0 +1,27 @@
+﻿<tfoot>
+    <tr>
+        <td colspan="100">
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" name="Size" id="pagination-ajax-size" v-model="Pagination.Size" v-on:keyup.enter="_getPage(Pagination.Page)">
+                <label class="mdl-textfield__label" for="pagination-ajax-size"></label>
+            </div>
+
+            на странице
+
+            <button class="mdl-button mdl-js-button mdl-button--icon" v-on:click="_getPage(Pagination.PreviousPage)">
+                <i class="material-icons" title="Предыдущая страница">keyboard_arrow_left</i>
+            </button>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" name="Page" id="pagination-ajax-page" v-model="Pagination.Page" v-on:keyup.enter="_getPage(Pagination.Page)">
+                <label class="mdl-textfield__label" for="pagination-ajax-page"></label>
+            </div>
+
+            из {{ Pagination.TotalPages }}
+
+            <button class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons" title="Следующая страница" v-on:click="_getPage(Pagination.NextPage)">keyboard_arrow_right</i>
+            </button>
+        </td>
+    </tr>
+</tfoot>

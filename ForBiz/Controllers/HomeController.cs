@@ -26,7 +26,7 @@ namespace ForBiz.Controllers
         {
             DB.PageRequest(pageRequest);
 
-            return Json(DB.Page.Items);
+            return Json(DB.Page);
         }
 
         [HttpPost]
