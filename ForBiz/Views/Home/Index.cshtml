@@ -1,6 +1,5 @@
 ﻿@using ForBiz.Models.Instagram;
 @using Newtonsoft.Json;
-@using ForBiz.ViewModel.Shared;
 
 @{
     ViewBag.Title = "Index";
@@ -18,12 +17,12 @@
             <div class="mdl-grid">
 
                 <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.FIO">
+                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Fio">
                     <label class="mdl-textfield__label">FIO...</label>
                 </div>
 
                 <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.URL">
+                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Url">
                     <label class="mdl-textfield__label">URL...</label>
                 </div>
 
@@ -57,7 +56,35 @@
     </dialog>
 
     <div class="mdl-grid" style="justify-content:center">
+
+
         <div class="">
+
+            <div v-show="DialogFind.View" class="mdl-shadow--2dp" style="padding:10px">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="DialogFind.Fio">
+                    <label class="mdl-textfield__label">Fio...</label>
+                </div>
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" v-model="DialogFind.Url">
+                    <label class="mdl-textfield__label">Url...</label>
+                </div></br>
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label">EndPoint</label>
+                    <select class="mdl-textfield__input" v-model="DialogFind.EndPoint">
+                        <option value=""></option>
+                        <option value="1">Instagram</option>
+                        <option value="2">VK</option>
+                        <option value="3">Email</option>
+                    </select>
+                </div></br>
+                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="dialogFind()">Find</button>
+                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="dialogFindClear()">Clear</button>
+            </div>
+
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6" v-on:click="dialogFindView(DialogFind.View)">
+                <i class="material-icons">search</i>
+            </label>
 
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                style="float: right; margin-right: 8px;" v-on:click="addPersonDialog">
@@ -77,8 +104,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in Persons">
-                        <td class="mdl-data-table__cell--non-numeric">{{item.FIO}}</td>
-                        <td>{{item.URL}}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{item.Fio}}</td>
+                        <td>{{item.Url}}</td>
                         <td>{{item.EndPoint | endPointFilter}}</td>
                         <td>{{item.TimeStamp | formatDate}}</td>
                         <td>

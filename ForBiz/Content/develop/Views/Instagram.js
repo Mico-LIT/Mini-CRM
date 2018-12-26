@@ -8,47 +8,42 @@
                 Info: '',
                 CurrPerson: {
                     Id: '',
-                    FIO: '',
-                    URL: '',
+                    Fio: '',
+                    Url: '',
                     EndPoint: '',
                     TimeStamp: ''
                 }
+            },
+            DialogFind:
+            {
+                View: false,
+                Fio: '',
+                Url: '',
+                EndPoint: 0
             }
         }),
         methods: {
             _getPage: function (page) {
-                //this.ajaxRequest = true;
-                this.$http.post('/Home/Page', { Page: page, Size: this.Pagination.Size })
-                    .then(response => {
-                        this.Persons = response.body.Items;
-                        this.Pagination = response.body.Pagination;
 
-                        //location.reload();
-                    }, response => {
-                        alert('error');
-                    });
+                if (this.DialogFind.View === false) {
+                    this.$http.post('/Home/Page', { Page: page, Size: this.Pagination.Size })
+                        .then(response => {
+                            this.Persons = response.body.Page.Items;
+                            this.Pagination = response.body.Page.Pagination;
+                        }, response => {
+                            alert('error');
+                        });
+                } else {
+                    var t = 1;
+                }
+
+                
             },
             addPerson: function () {
-                //this.ajaxRequest = false;
-
                 this.$http.post('/Home/AddPerson',
-                    { FIO: this.Dialog.CurrPerson.FIO, URL: this.Dialog.CurrPerson.URL, EndPoint: this.Dialog.CurrPerson.EndPoint, TimeStamp: new Date().toISOString() })
+                    { Fio: this.Dialog.CurrPerson.Fio, Url: this.Dialog.CurrPerson.Url, EndPoint: this.Dialog.CurrPerson.EndPoint, TimeStamp: new Date().toISOString() })
                     .then(response => {
-
-                        //// get status
-                        //alert(response.status);
-
-                        //// get status text
-                        //alert(response.statusText);
-
-                        //// get 'Expires' header
-                        //alert(response.headers.get('Expires'));
-
-                        //// get body data
-                        //alert(response.body);
                         this._getPage(this.Pagination.Page);
-
-                        //location.reload();
 
                     }, response => {
                         alert('error');
@@ -58,8 +53,8 @@
 
                 this.Dialog.Info = 'Добавить';
                 this.Dialog.CurrPerson = Object.assign({}, {
-                    FIO: '',
-                    URL: '',
+                    Fio: '',
+                    Url: '',
                     EndPoint: '',
                     TimeStamp: ''
                 });
@@ -72,8 +67,8 @@
             removePerson: function (value) {
                 this.$http.post('/Home/DeletePerson', { Id: this.Dialog.CurrPerson.Id })
                     .then(response => {
-                        //location.reload();
                         this._getPage(this.Pagination.Page);
+
                     }, response => {
                         alert('error');
                     });
@@ -82,7 +77,7 @@
             },
             removePersonDialog: function (value) {
 
-                this.Dialog.Info = 'Уверены ли вы ? Что хотите удалить </br> ' + value.FIO;
+                this.Dialog.Info = 'Уверены ли вы ? Что хотите удалить </br> ' + value.Fio;
                 this.Dialog.CurrPerson = Object.assign({}, value);
 
                 this.$refs.RemovePersonDialog.showModal();
@@ -109,11 +104,26 @@
 
                 this.$http.post('/Home/UpdatePerson', this.Dialog.CurrPerson)
                     .then(response => {
-                        //location.reload();
                         this._getPage(this.Pagination.Page);
+
                     }, response => {
                         alert('error');
                     });
+            },
+            dialogFindView: function (value) {
+                this.DialogFind.View = !value;
+            },
+            dialogFindClear: function () {
+                this.DialogFind.Fio = this.DialogFind.Url = this.DialogFind.EndPoint = '';
+                this._getPage(1);
+            },
+            dialogFind: function () {
+                this.$http.post('/Home/FindPerson', this.DialogFind).then(response => {
+                    this.Persons = response.body.Page.Items;
+                    this.Pagination = response.body.Page.Pagination;
+                }, response => {
+                    alert('Error');
+                });
             }
         },
         components: {},

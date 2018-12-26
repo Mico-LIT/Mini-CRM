@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForBiz.Business.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,10 @@ namespace ForBiz
     {
         protected void Application_Start()
         {
+            BusinessConfig.ApplyMigrations();
+            Core.IoC.Register();
+            AutoMapperConfig.Initialize();
+
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

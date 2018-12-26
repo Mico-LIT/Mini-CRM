@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5215A2F2-0E00-42C2-A558-F259C0F1274B}</ProjectGuid>
+    <ProjectGuid>{E1FE2CAE-5EF1-4B02-B469-59178C53AC92}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Utility.Business.Core</RootNamespace>
-    <AssemblyName>Utility.Business.Core</AssemblyName>
+    <RootNamespace>ForBiz.Data</RootNamespace>
+    <AssemblyName>ForBiz.Data</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,7 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="dbup-core, Version=4.2.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>..\packages\dbup-core.4.2.0\lib\net45\dbup-core.dll</HintPath>
+    </Reference>
+    <Reference Include="dbup-sqlserver, Version=4.2.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>..\packages\dbup-sqlserver.4.2.0\lib\net35\dbup-sqlserver.dll</HintPath>
+    </Reference>
+    <Reference Include="DryIoc, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DryIoc.dll.3.0.2\lib\net45\DryIoc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,19 +54,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Page\Dto\PageDto.cs" />
-    <Compile Include="Page\Models\PaginationModel.cs" />
-    <Compile Include="Page\Requests\PageRequest.cs" />
+    <Compile Include="Core\IoC.cs" />
+    <Compile Include="Core\Migrations.cs" />
+    <Compile Include="Modules\Instagram\Dbo\InstagramDbo.cs" />
+    <Compile Include="Modules\Instagram\Dbo\InstagramFind.cs" />
+    <Compile Include="Modules\Instagram\Repositories\IInstagramRepository.cs" />
+    <Compile Include="Modules\Instagram\Repositories\InstagramRetository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ForBiz.Data\ForBiz.Data.csproj">
-      <Project>{E1FE2CAE-5EF1-4B02-B469-59178C53AC92}</Project>
-      <Name>ForBiz.Data</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utility.Data.Core\Utility.Data.Core.csproj">
+      <Project>{7427fc83-3025-4537-8bf0-7581ea5d4403}</Project>
+      <Name>Utility.Data.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
+    <EmbeddedResource Include="Migrations\20181224191044_Instagram.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

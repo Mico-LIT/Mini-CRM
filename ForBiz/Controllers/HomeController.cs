@@ -1,5 +1,6 @@
-﻿using ForBiz.Models.Instagram;
-using ForBiz.Models.Instagram.Constans;
+﻿using ForBiz.Business.Modules.Instagram.Dto;
+using ForBiz.Business.Modules.Instagram.Services;
+using ForBiz.Models.Instagram;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,28 +13,30 @@ namespace ForBiz.Controllers
 {
     public class HomeController : Controller
     {
-        public static InstagramVm DB = null;
+        private Lazy<IInstagramService> _instagramService;
+
+        public HomeController(Lazy<IInstagramService> instagramService)
+        {
+            _instagramService = instagramService;
+        }
 
         // GET: Home
+        [HttpGet]
         public ActionResult Index(PageRequest pageRequest)
         {
-            DB = new InstagramVm(pageRequest);
-            return View(DB);
+            return View(new InstagramVm(_instagramService.Value.Get(pageRequest)));
         }
 
         [HttpPost]
         public JsonResult Page(PageRequest pageRequest)
         {
-            DB.PageRequest(pageRequest);
-
-            return Json(DB.Page);
+            return Json(new InstagramVm(_instagramService.Value.Get(pageRequest)));
         }
 
         [HttpPost]
-        public ActionResult AddPerson(Instagram person)
+        public ActionResult AddPerson(InstagramDto instagramDto)
         {
-            person.Id = Guid.NewGuid();
-            InstagramVm.instagramsDB.Add(person);
+            _instagramService.Value.AddPerson(instagramDto);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -41,24 +44,23 @@ namespace ForBiz.Controllers
         [HttpPost]
         public ActionResult DeletePerson(Guid Id)
         {
-            InstagramVm.instagramsDB.Remove(InstagramVm.instagramsDB.First(x => x.Id == Id));
+            _instagramService.Value.DeletePerson(Id);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult UpdatePerson(Instagram instagramVm)
+        public ActionResult UpdatePerson(InstagramDto instagramDto)
         {
-            var person = InstagramVm.instagramsDB.First(x => x.Id == instagramVm.Id);
-
-            if (person != null)
-            {
-                person.FIO = instagramVm.FIO;
-                person.EndPoint = instagramVm.EndPoint;
-                person.URL = instagramVm.URL;
-            }
+            _instagramService.Value.UpdatePerson(instagramDto);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public JsonResult FindPerson(InstagramFindDto instagramFindDto)
+        {
+            return Json(new InstagramVm(_instagramService.Value.Find(instagramFindDto)));
         }
     }
 }

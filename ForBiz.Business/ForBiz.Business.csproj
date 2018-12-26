@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5215A2F2-0E00-42C2-A558-F259C0F1274B}</ProjectGuid>
+    <ProjectGuid>{0480395E-10C9-4DAF-AAED-E04BF6D1CE64}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Utility.Business.Core</RootNamespace>
-    <AssemblyName>Utility.Business.Core</AssemblyName>
+    <RootNamespace>ForBiz.Business</RootNamespace>
+    <AssemblyName>ForBiz.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,8 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DryIoc, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DryIoc.dll.3.0.2\lib\net45\DryIoc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,19 +50,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Page\Dto\PageDto.cs" />
-    <Compile Include="Page\Models\PaginationModel.cs" />
-    <Compile Include="Page\Requests\PageRequest.cs" />
+    <Compile Include="Core\AutoMapperConfig.cs" />
+    <Compile Include="Core\BusinessConfig.cs" />
+    <Compile Include="Core\IoC.cs" />
+    <Compile Include="Modules\Instagram\Constans\EndPoin.cs" />
+    <Compile Include="Modules\Instagram\Dto\InstagramDto.cs" />
+    <Compile Include="Modules\Instagram\Dto\InstagramFindDto.cs" />
+    <Compile Include="Modules\Instagram\Services\IInstagramService.cs" />
+    <Compile Include="Modules\Instagram\Services\InstagramService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ForBiz.Data\ForBiz.Data.csproj">
       <Project>{E1FE2CAE-5EF1-4B02-B469-59178C53AC92}</Project>
       <Name>ForBiz.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utility.Business.Core\Utility.Business.Core.csproj">
+      <Project>{5215A2F2-0E00-42C2-A558-F259C0F1274B}</Project>
+      <Name>Utility.Business.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility.Data.Core\Utility.Data.Core.csproj">
+      <Project>{7427fc83-3025-4537-8bf0-7581ea5d4403}</Project>
+      <Name>Utility.Data.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
