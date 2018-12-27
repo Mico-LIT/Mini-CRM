@@ -58,9 +58,9 @@ namespace ForBiz.Controllers
         }
 
         [HttpPost]
-        public JsonResult FindPerson(InstagramFindDto instagramFindDto)
+        public JsonResult FindPerson(InstagramFindDto instagramFind, PageRequest pageRequest)
         {
-            return Json(new InstagramVm(_instagramService.Value.Find(instagramFindDto)));
+            return Json(new InstagramVm(_instagramService.Value.Find(instagramFind, pageRequest)));
         }
     }
 }

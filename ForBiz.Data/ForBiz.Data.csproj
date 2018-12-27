@@ -57,7 +57,7 @@
     <Compile Include="Core\IoC.cs" />
     <Compile Include="Core\Migrations.cs" />
     <Compile Include="Modules\Instagram\Dbo\InstagramDbo.cs" />
-    <Compile Include="Modules\Instagram\Dbo\InstagramFind.cs" />
+    <Compile Include="Modules\Instagram\Models\InstagramFind.cs" />
     <Compile Include="Modules\Instagram\Repositories\IInstagramRepository.cs" />
     <Compile Include="Modules\Instagram\Repositories\InstagramRetository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

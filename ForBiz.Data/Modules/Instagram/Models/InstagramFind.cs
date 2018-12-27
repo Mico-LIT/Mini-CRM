@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForBiz.Data.Modules.Instagram.Dbo
+namespace ForBiz.Data.Modules.Instagram.Models
 {
     public class InstagramFind
     {

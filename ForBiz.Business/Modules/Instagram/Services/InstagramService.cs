@@ -9,6 +9,7 @@ using Utility.Business.Core.Page.Dto;
 using Utility.Business.Core.Page.Requests;
 using AutoMapper;
 using ForBiz.Data.Modules.Instagram.Dbo;
+using ForBiz.Data.Modules.Instagram.Models;
 
 namespace ForBiz.Business.Modules.Instagram.Services
 {
@@ -46,16 +47,14 @@ namespace ForBiz.Business.Modules.Instagram.Services
             _instagramRepository.Value.DeletePerson(Id);
         }
 
-        public PageDto<InstagramDto> Find(InstagramFindDto instagramFind)
+        public PageDto<InstagramDto> Find(InstagramFindDto instagramFind, PageRequest pageRequest)
         {
-            var tmp = _instagramRepository.Value.Find(Mapper.Map<InstagramFindDto, InstagramFind>(instagramFind));
-
-            var page = new PageRequest();
+            var pageDbo = _instagramRepository.Value.Find(Mapper.Map<InstagramFindDto, InstagramFind>(instagramFind), pageRequest.Page, pageRequest.Size);
 
             return new PageDto<InstagramDto>(
-                Mapper.Map<IEnumerable<InstagramDbo>, IEnumerable<InstagramDto>>(tmp.Items).ToList()
-                , page
-                , tmp.TotalCount
+                Mapper.Map<IEnumerable<InstagramDbo>, IEnumerable<InstagramDto>>(pageDbo.Items).ToList()
+                , pageRequest
+                , pageDbo.TotalCount
                 );
         }
     }

@@ -9,25 +9,25 @@
 
 
 <div class="" id="Instagram">
+    <div class="mdl-grid" style="max-width:900px">
+        <!---->
 
-    <dialog class="mdl-dialog" ref="UpdatePersonDialog" v-if="true">
-        <h5 class="mdl-dialog__title">{{Dialog.Info}}</h5>
-        <div class="mdl-dialog__content">
-
-            <div class="mdl-grid">
+        <dialog class="mdl-dialog" ref="UpdatePersonDialog" v-if="true">
+            <h5 class="mdl-dialog__title">{{Dialog.Info}}</h5>
+            <div class="mdl-dialog__content">
 
                 <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Fio">
-                    <label class="mdl-textfield__label">FIO...</label>
+                    <label class="mdl-textfield__label">Fio...</label>
                 </div>
 
                 <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Url">
-                    <label class="mdl-textfield__label">URL...</label>
+                    <label class="mdl-textfield__label">Url...</label>
                 </div>
 
                 <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label" >EndPoint</label>
+                    <label class="mdl-textfield__label">EndPoint</label>
                     <select class="mdl-textfield__input" v-model="Dialog.CurrPerson.EndPoint">
                         <option disabled value=""></option>
                         <option value="1">Instagram</option>
@@ -37,39 +37,36 @@
                 </div>
 
             </div>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button remove" v-on:click="updateAndAddPerson()">{{Dialog.Info}}</button>
-            <button type="button" class="mdl-button close" v-on:click="$refs.UpdatePersonDialog.close()">Отмена</button>
-        </div>
-    </dialog>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button remove" v-on:click="updateAndAddPerson()">{{Dialog.Info}}</button>
+                <button type="button" class="mdl-button close" v-on:click="$refs.UpdatePersonDialog.close()">Отмена</button>
+            </div>
+        </dialog>
 
-    <dialog class="mdl-dialog" ref="RemovePersonDialog">
-        <h5 class="mdl-dialog__title">Удалить человека</h5>
-        <div class="mdl-dialog__content">
-            <p id="PersonNameDialog" v-html="Dialog.Info"> {{Dialog.Info}}</p>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button remove" v-on:click="removePerson(Dialog.CurrPerson)">Да</button>
-            <button type="button" class="mdl-button close" v-on:click="$refs.RemovePersonDialog.close()">Нет</button>
-        </div>
-    </dialog>
+        <dialog class="mdl-dialog" ref="RemovePersonDialog">
+            <h5 class="mdl-dialog__title">Удалить человека</h5>
+            <div class="mdl-dialog__content">
+                <p id="PersonNameDialog" v-html="Dialog.Info"> {{Dialog.Info}}</p>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button remove" v-on:click="removePerson(Dialog.CurrPerson)">Да</button>
+                <button type="button" class="mdl-button close" v-on:click="$refs.RemovePersonDialog.close()">Нет</button>
+            </div>
+        </dialog>
 
-    <div class="mdl-grid" style="justify-content:center">
+        <!---->
 
-
-        <div class="">
-
+        <div class="mdl-cell--12-col">
             <div v-show="DialogFind.View" class="mdl-shadow--2dp" style="padding:10px">
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 250px;" >
                     <input class="mdl-textfield__input" type="text" v-model="DialogFind.Fio">
                     <label class="mdl-textfield__label">Fio...</label>
                 </div>
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 250px;" >
                     <input class="mdl-textfield__input" type="text" v-model="DialogFind.Url">
                     <label class="mdl-textfield__label">Url...</label>
-                </div></br>
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                </div>
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 250px;" >
                     <label class="mdl-textfield__label">EndPoint</label>
                     <select class="mdl-textfield__input" v-model="DialogFind.EndPoint">
                         <option value=""></option>
@@ -78,11 +75,16 @@
                         <option value="3">Email</option>
                     </select>
                 </div></br>
-                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="dialogFind()">Find</button>
-                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="dialogFindClear()">Clear</button>
+                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="find(1)">Поиск</button>
+                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="dialogFindClear()">Очистить поля</button>
             </div>
+        </div>
 
-            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6" v-on:click="dialogFindView(DialogFind.View)">
+        <div class="mdl-cell--12-col ">
+
+
+            <label class="mdl-button mdl-js-button mdl-button--icon" style="float: right; margin-right: 8px;"
+                   v-on:click="dialogFindView(DialogFind.View)">
                 <i class="material-icons">search</i>
             </label>
 
@@ -92,7 +94,7 @@
                 ADD PERSON
             </a>
 
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%">
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">ФИО</th>
@@ -125,8 +127,8 @@
                 </tbody>
             </table>
         </div>
-    </div>
 
+    </div>
 </div>
 
 <script src="~/Content/develop/Views/Instagram.js" type="text/javascript"></script>

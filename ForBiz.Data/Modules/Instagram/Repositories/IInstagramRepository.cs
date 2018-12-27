@@ -1,4 +1,5 @@
 ﻿using ForBiz.Data.Modules.Instagram.Dbo;
+using ForBiz.Data.Modules.Instagram.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace ForBiz.Data.Modules.Instagram.Repositories
         void AddPerson(InstagramDbo instagram);
         void UpdatePerson(InstagramDbo instagram);
         void DeletePerson(Guid Id);
-        PageDbo<InstagramDbo> Find(InstagramFind instagramFind);
+        PageDbo<InstagramDbo> Find(InstagramFind instagramFind, int page, int size);
         PageDbo<InstagramDbo> Get(int page, int size);
     }
 }

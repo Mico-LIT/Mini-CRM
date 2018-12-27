@@ -34,12 +34,11 @@
                             alert('error');
                         });
                 } else {
-                    var t = 1;
+                    this.find(page);
                 }
-
-                
             },
             addPerson: function () {
+
                 this.$http.post('/Home/AddPerson',
                     { Fio: this.Dialog.CurrPerson.Fio, Url: this.Dialog.CurrPerson.Url, EndPoint: this.Dialog.CurrPerson.EndPoint, TimeStamp: new Date().toISOString() })
                     .then(response => {
@@ -111,14 +110,24 @@
                     });
             },
             dialogFindView: function (value) {
-                this.DialogFind.View = !value;
+
+                if (this.DialogFind.View) {
+                    this.Pagination.Size = 10;
+                    this.DialogFind.View = !value;
+                    this.dialogFindClear();
+                }
+                else {this.DialogFind.View = !value;}
             },
             dialogFindClear: function () {
+
                 this.DialogFind.Fio = this.DialogFind.Url = this.DialogFind.EndPoint = '';
                 this._getPage(1);
             },
-            dialogFind: function () {
-                this.$http.post('/Home/FindPerson', this.DialogFind).then(response => {
+            find: function (page) {
+
+                this.$http.post('/Home/FindPerson',
+                    { instagramFind: this.DialogFind, pageRequest: { Page: page, Size: this.Pagination.Size } })
+                    .then(response => {
                     this.Persons = response.body.Page.Items;
                     this.Pagination = response.body.Page.Pagination;
                 }, response => {

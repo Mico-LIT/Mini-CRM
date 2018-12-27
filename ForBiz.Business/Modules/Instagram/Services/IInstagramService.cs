@@ -10,7 +10,7 @@ namespace ForBiz.Business.Modules.Instagram.Services
         void AddPerson(InstagramDto instagram);
         void UpdatePerson(InstagramDto instagram);
         void DeletePerson(Guid Id);
-        PageDto<InstagramDto> Find(InstagramFindDto instagramFind);
+        PageDto<InstagramDto> Find(InstagramFindDto instagramFind, PageRequest pageRequest);
         PageDto<InstagramDto> Get(PageRequest pageRequest);
     }
 }
