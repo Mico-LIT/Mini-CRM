@@ -40,10 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\AllFieldsRequiredException.cs" />
+    <Compile Include="Exceptions\BaseCustomException.cs" />
+    <Compile Include="Exceptions\ExceptionDictionary.cs" />
+    <Compile Include="Exceptions\ExceptionDictionaryItem.cs" />
+    <Compile Include="Exceptions\ICustomException.cs" />
+    <Compile Include="Exceptions\IncorrectDataException.cs" />
+    <Compile Include="Exceptions\PersonFoundException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Page\Dto\PageDto.cs" />
     <Compile Include="Page\Models\PaginationModel.cs" />
     <Compile Include="Page\Requests\PageRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\JsonResponse.cs" />
+    <Compile Include="Responses\JsonResponseStatus.cs" />
+    <Compile Include="Responses\JsonResponseStatusCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ForBiz.Data\ForBiz.Data.csproj">

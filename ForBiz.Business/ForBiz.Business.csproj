@@ -53,11 +53,17 @@
     <Compile Include="Core\AutoMapperConfig.cs" />
     <Compile Include="Core\BusinessConfig.cs" />
     <Compile Include="Core\IoC.cs" />
-    <Compile Include="Modules\Instagram\Constans\EndPoin.cs" />
-    <Compile Include="Modules\Instagram\Dto\InstagramDto.cs" />
-    <Compile Include="Modules\Instagram\Dto\InstagramFindDto.cs" />
-    <Compile Include="Modules\Instagram\Services\IInstagramService.cs" />
-    <Compile Include="Modules\Instagram\Services\InstagramService.cs" />
+    <Compile Include="Core\ExceptionConfig.cs" />
+    <Compile Include="Modules\Persons\Dto\PersonDto.cs" />
+    <Compile Include="Modules\Persons\Dto\PersonFindDto.cs" />
+    <Compile Include="Modules\Persons\Exceptions\InvalidEmailException.cs" />
+    <Compile Include="Modules\Persons\Exceptions\InvalidInstagramException.cs" />
+    <Compile Include="Modules\Persons\Exceptions\InvalidNameException.cs" />
+    <Compile Include="Modules\Persons\Exceptions\InvalidVkException.cs" />
+    <Compile Include="Modules\Persons\Exceptions\ConditionBaseException.cs" />
+    <Compile Include="Modules\Persons\Services\IPersonService.cs" />
+    <Compile Include="Modules\Persons\Services\PersonService.cs" />
+    <Compile Include="Modules\Persons\Validate\PersonValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

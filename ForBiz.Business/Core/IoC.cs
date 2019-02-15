@@ -1,15 +1,14 @@
 ﻿namespace ForBiz.Business.Core
 {
     using DryIoc;
-    using ForBiz.Business.Modules.Instagram.Services;
+    using ForBiz.Business.Modules.Persons.Services;
 
     public static class IoC
     {
         public static void Register(IContainer container)
         {
             Data.Core.IoC.Register(container);
-
-            container.Register<IInstagramService, InstagramService>();
+            container.Register<IPersonService, PersonService>();
         }
     }
 }

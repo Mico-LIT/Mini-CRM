@@ -1,0 +1,12 @@
+drop table Instagram
+
+CREATE TABLE Person(
+Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT (newsequentialid()),
+[Name] NVARCHAR(200),
+Instagram NVARCHAR(200),
+Vk NVARCHAR(200),
+Email NVARCHAR(200),
+TimeStamp DATETIME NOT NULL DEFAULT (GETDATE()),
+TimeSending DATETIME NULL,
+TimeUpdate DATETIME NULL
+  )

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForBiz.Data.Modules;
 using DryIoc;
-using ForBiz.Data.Modules.Instagram.Repositories;
+using ForBiz.Data.Modules.Persons.Repositories;
 
 namespace ForBiz.Data.Core
 {
@@ -13,7 +13,7 @@ namespace ForBiz.Data.Core
     {
         public static void Register(IContainer container)
         {
-            container.Register<IInstagramRepository, InstagramRetository>();
+            container.Register<IPersonRepository, PersonRetository>();
         }
     }
 }

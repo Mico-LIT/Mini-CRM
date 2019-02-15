@@ -20,6 +20,7 @@
     <!--vue-resource v1.5.1-->
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 
+    @RenderSection("Styles", false)
 
     <style>
         body {
@@ -32,30 +33,34 @@
         <header class="mdl-layout__header mdl-layout__header--scroll">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">Инста</span>
+                <span class="mdl-layout-title">@ViewBag.Title</span>
                 <!-- Add spacer, to align navigation to the right -->
                 @*<div class="mdl-layout-spacer"></div>*@
                 <!-- Navigation -->
                 @*<nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
+                      <a class="mdl-navigation__link" href="">Link</a>
+                      <a class="mdl-navigation__link" href="">Link</a>
+                      <a class="mdl-navigation__link" href="">Link</a>
+                      <a class="mdl-navigation__link" href="">Link</a>
                 </nav>*@
             </div>
         </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">ForBiz</span>
-            <nav class="mdl-navigation">
-                @*<a class="mdl-navigation__link" href="">test</a>*@
-                @Html.ActionLink("Инста", "Index", "Home", new { area = "" }, new { @class = "mdl-navigation__link" })
-            </nav>
+        @if (Session["Token"] != null)
+        {
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">ForBiz</span>
+                <nav class="mdl-navigation">
+
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "mdl-navigation__link" })
+                    @Html.ActionLink("Рассылка", "Index", "Person", new { area = "" }, new { @class = "mdl-navigation__link" })
+                    
+                </nav>
+            </div>
+        }
+            <main class="mdl-layout__content">
+                @RenderBody()
+            </main>
+
         </div>
-
-        <main class="mdl-layout__content">
-            @RenderBody()
-        </main>
-
-    </div>
 </body>
 </html>
