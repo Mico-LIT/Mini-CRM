@@ -33,20 +33,12 @@
         }),
         methods: {
             _clearValidDialog: function () {
+                    this.Dialog.Error.Name = '';
+                    this.Dialog.Error.Instagram = '';
+                    this.Dialog.Error.Vk = '';
+                    this.Dialog.Error.Email = '';
+                    this.Dialog.Error.ConditionBase = '';
 
-                this.Dialog.Error.Name = this.Dialog.Error.Instagram = this.Dialog.Error.Vk = this.Dialog.Error.Email = this.Dialog.Error.ConditionBase = null;
-
-                this.$refs.textfield_Name.classList.remove("is-invalid");
-                this.$refs.textfield_Instagram.classList.remove("is-invalid");
-                this.$refs.textfield_Vk.classList.remove("is-invalid");
-                this.$refs.textfield_Email.classList.remove("is-invalid");
-            },
-            _isValidDialog: function () {
-
-                if (this.Dialog.Error.Name) { this.$refs.textfield_Name.classList.add("is-invalid"); }
-                if (this.Dialog.Error.Instagram) { this.$refs.textfield_Instagram.classList.add("is-invalid"); }
-                if (this.Dialog.Error.Vk) { this.$refs.textfield_Vk.classList.add("is-invalid"); }
-                if (this.Dialog.Error.Email) { this.$refs.textfield_Email.classList.add("is-invalid"); }
             },
             _getPage: function (page) {
 
@@ -63,6 +55,7 @@
                 }
             },
             addPerson: function () {
+                this._clearValidDialog();
 
                 this.$http.post('/Person/AddPerson',
                     {
@@ -83,14 +76,13 @@
                                 for (var i = 0; i < response.body.Errors.length; i++) {
                                     var mess = response.body.Errors[i].Message;
 
-                                    if (response.body.Errors[i].Code === "Invalid_Instagraml") { this.Dialog.Error.Instagram = mess; continue; }
+                                    if (response.body.Errors[i].Code === "Invalid_Instagram") { this.Dialog.Error.Instagram = mess; continue; }
                                     if (response.body.Errors[i].Code === "Invalid_Email") { this.Dialog.Error.Email = mess; continue; }
                                     if (response.body.Errors[i].Code === "Invalid_Name") { this.Dialog.Error.Name = mess; continue; }
                                     if (response.body.Errors[i].Code === "Invalid_Vk") { this.Dialog.Error.Vk = mess; continue; }
                                     if (response.body.Errors[i].Code === "Сondition_Base") { this.Dialog.Error.ConditionBase = mess; continue; }
                                 }
                             }
-                                this._isValidDialog();
                         } else {
                             this.$refs.UpdatePersonDialog.close();
                             this._getPage(this.Pagination.Page);
@@ -121,7 +113,7 @@
             },
             sendPerson: function (value) {
 
-                this.$http.post('/Person/SendPerson', { Id: value.Id })
+                this.$http.post('/Person/SendPerson', { personId: value.Id })
                     .then(response => {
                         this._getPage(this.Pagination.Page);
                     }, response => {
@@ -135,7 +127,7 @@
             },
             removePerson: function (value) {
 
-                this.$http.post('/Person/DeletePerson', { Id: this.Dialog.CurrPerson.Id })
+                this.$http.post('/Person/DeletePerson', { personId: this.Dialog.CurrPerson.Id })
                     .then(response => {
                         this._getPage(this.Pagination.Page);
 
@@ -154,8 +146,6 @@
             },
             updateAndAddPerson: function () {
 
-                this._clearValidDialog();
-
                 if (this.Dialog.Info === 'Добавить') {
                     this.addPerson();
                 }
@@ -173,6 +163,7 @@
                 this.$refs.UpdatePersonDialog.showModal();
             },
             updatePerson: function () {
+                this._clearValidDialog();
 
                 this.$http.post('/Person/UpdatePerson', this.Dialog.CurrPerson)
                     .then(response => {
@@ -185,14 +176,13 @@
                                 for (var i = 0; i < response.body.Errors.length; i++) {
                                     var mess = response.body.Errors[i].Message;
 
-                                    if (response.body.Errors[i].Code === "Invalid_Instagraml") { this.Dialog.Error.Instagram = mess; continue; }
+                                    if (response.body.Errors[i].Code === "Invalid_Instagram") { this.Dialog.Error.Instagram = mess; continue; }
                                     if (response.body.Errors[i].Code === "Invalid_Email") { this.Dialog.Error.Email = mess; continue; }
                                     if (response.body.Errors[i].Code === "Invalid_Name") { this.Dialog.Error.Name = mess; continue; }
                                     if (response.body.Errors[i].Code === "Invalid_Vk") { this.Dialog.Error.Vk = mess; continue; }
                                     if (response.body.Errors[i].Code === "Сondition_Base") { this.Dialog.Error.ConditionBase = mess; continue; }
                                 }
                             }
-                            this._isValidDialog();
                         } else {
                             this._getPage(this.Pagination.Page);
                             this.$refs.UpdatePersonDialog.close();
@@ -211,10 +201,10 @@
                 }
                 else { this.Dialog.Find.View = !value; }
             },
-            find: function (page) {
+            find: function (page = 1) {
 
                 this.$http.post('/Person/FindPerson',
-                    { instagramFind: this.Dialog.Find, pageRequest: { Page: page, Size: this.Pagination.Size } })
+                    { personFind: this.Dialog.Find, pageRequest: { Page: page, Size: this.Pagination.Size } })
                     .then(response => {
                         this.Persons = response.body.Page.Items;
                         this.Pagination = response.body.Page.Pagination;

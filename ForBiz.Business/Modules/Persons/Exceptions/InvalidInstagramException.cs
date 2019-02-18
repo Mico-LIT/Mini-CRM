@@ -9,7 +9,7 @@ namespace ForBiz.Business.Modules.Persons.Exceptions
 {
     public class InvalidInstagramException : BaseCustomException
     {
-        public override string Code => "Invalid_Instagraml";
+        public override string Code => "Invalid_Instagram";
         public override string UserFriendlyMessage => "Некорректный Instagram";
     }
 }

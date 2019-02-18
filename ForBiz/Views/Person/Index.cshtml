@@ -9,32 +9,40 @@
 @model PersonVm
 
 <div class="" id="Persons">
-    <div class="mdl-grid" style="max-width:1030px">
+    <div class="mdl-grid" style="max-width:1070px">
         <!---->
 
-        <dialog class="mdl-dialog" ref="UpdatePersonDialog" v-if="true">
+        <dialog class="mdl-dialog" ref="UpdatePersonDialog">
             <h5 class="mdl-dialog__title">{{Dialog.Info}}</h5>
             <div class="mdl-dialog__content">
                 <span style="color:red" v-if="Dialog.Error.ConditionBase">{{Dialog.Error.ConditionBase}}</span>
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="textfield_Name">
-                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Name" required>
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                     v-bind:class="{'is-invalid': Dialog.Error.Name != ''}"
+                     ref="textfield_Name">
+                    <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Name">
                     <label class="mdl-textfield__label">Имя...</label>
                     <span class="mdl-textfield__error">{{Dialog.Error.Name}}</span>
                 </div>
 
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="textfield_Instagram">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                     v-bind:class="{'is-invalid': Dialog.Error.Instagram != ''}"
+                     ref="textfield_Instagram">
                     <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Instagram">
                     <label class="mdl-textfield__label">Instagram...</label>
                     <span class="mdl-textfield__error">{{Dialog.Error.Instagram}}</span>
                 </div>
 
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="textfield_Vk">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                    v-bind:class="{'is-invalid': Dialog.Error.Vk != ''}"
+                    ref="textfield_Vk">
                     <input class="mdl-textfield__input" type="text" v-model="Dialog.CurrPerson.Vk">
                     <label class="mdl-textfield__label">Vk...</label>
                     <span class="mdl-textfield__error">{{Dialog.Error.Vk}}</span>
                 </div>
 
-                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="textfield_Email">
+                <div v-mdl-textfield class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                     v-bind:class="{'is-invalid': Dialog.Error.Email != ''}"
+                     ref="textfield_Email">
                     <input class="mdl-textfield__input" type="email" v-model="Dialog.CurrPerson.Email">
                     <label class="mdl-textfield__label">Email...</label>
                     <span class="mdl-textfield__error">{{Dialog.Error.Email}}</span>
@@ -79,13 +87,12 @@
                     <label class="mdl-textfield__label">Email...</label>
                 </div>
                 </br>
-                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="find(1)">Поиск</button>
+                <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="find()">Поиск</button>
                 <button class="mdl-button mdl-js-button mdl-shadow--2dp" v-on:click="clearFindDialog()">Очистить поля</button>
             </div>
         </div>
 
-        <div class="mdl-cell--12-col ">
-
+        <div class="mdl-cell--12-col">
 
             <label class="mdl-button mdl-js-button mdl-button--icon" style="float: right; margin-right: 8px;" title="Поиск"
                    v-on:click="dialogFindView(Dialog.Find.View)">
@@ -98,7 +105,7 @@
                 Добавить человека
             </a>
 
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">Имя</th>
